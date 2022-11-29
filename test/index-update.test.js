@@ -113,14 +113,19 @@ const MODIFIED_CONFIG = {
   },
 };
 
-let mockConfig = structuredClone(ORIGINAL_CONFIG);
+const mockConfig = structuredClone(ORIGINAL_CONFIG);
 
 jest.mock('../build/config-functions', () => {
   return {
     writeConfig: jest.fn((data) => {
-      mockConfig = data;
+      if (Object.keys(data[Object.keys(data)[0]].tenants).find((e) => e === 'abcd-error') === 'abcd-error') {
+        throw new Error('simulated error');
+      }
     }),
     readConfig: jest.fn(() => {
+      if (Object.keys(mockConfig[Object.keys(mockConfig)[0]].tenants).find((e) => e === 'abcd-error') === 'abcd-error') {
+        throw new Error('simulated error');
+      }
       return mockConfig;
     }),
   };
@@ -136,6 +141,18 @@ const ADD_DATA = {
 const DELETE_DATA = {
   operation: 'delete',
   tenantId: 'abcd-12345',
+};
+
+// The following cause the mock to simulate an error
+const ADD_DATA_GENERATE_ERROR = {
+  operation: 'add',
+  tenantId: 'abcd-error',
+  displayName: 'AB CD',
+};
+
+const DELETE_DATA_GENERATE_ERROR = {
+  operation: 'delete',
+  tenantId: 'abcd-error',
 };
 
 describe('updateConfig update tests', () => {
@@ -177,6 +194,22 @@ describe('updateConfig update tests', () => {
     await updateConfig(req, res);
     expect(res.statusCode).toBe(400);
     expect(mockConfig).toEqual(ORIGINAL_CONFIG);
+  });
+
+  it('Add tenant - simulated error', async () => {
+    const req = new Request();
+    req.setBody(ADD_DATA_GENERATE_ERROR);
+    const res = new Response();
+    await updateConfig(req, res);
+    expect(res.statusCode).toBe(500);
+  });
+
+  it('Delete tenant - simulated error', async () => {
+    const req = new Request();
+    req.setBody(DELETE_DATA_GENERATE_ERROR);
+    const res = new Response();
+    await updateConfig(req, res);
+    expect(res.statusCode).toBe(500);
   });
 },
 );
