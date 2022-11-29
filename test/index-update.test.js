@@ -157,7 +157,7 @@ describe('updateConfig update tests', () => {
     req.setBody(ADD_DATA);
     const res = new Response();
     await updateConfig(req, res);
-    expect(res.statusCode).toBe(500);
+    expect(res.statusCode).toBe(400);
     expect(mockConfig).toEqual(MODIFIED_CONFIG);
   });
 
@@ -175,7 +175,7 @@ describe('updateConfig update tests', () => {
     req.setBody(DELETE_DATA);
     const res = new Response();
     await updateConfig(req, res);
-    expect(res.statusCode).toBe(500);
+    expect(res.statusCode).toBe(400);
     expect(mockConfig).toEqual(ORIGINAL_CONFIG);
   });
 },

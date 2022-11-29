@@ -61,7 +61,7 @@ async function errorRequest(data, errorMessage) {
   const res = new Response();
   await updateConfig(req, res);
   expect(res.send).toHaveBeenCalled();
-  expect(res.statusCode).toBe(500);
+  expect(res.statusCode).toBe(400);
   expect(res.body).toBe(errorMessage);
 }
 

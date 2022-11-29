@@ -65,7 +65,7 @@ async function deleteTenant(tenantId: string): Promise<StatusCode> {
     }
     delete tenants[tenantId];
     await cf.writeConfig(config);
-    return 0;
+    return StatusCode.ok;
   } catch (error) {
     console.error(error);
     return StatusCode.invocationError;
@@ -81,13 +81,13 @@ async function deleteTenant(tenantId: string): Promise<StatusCode> {
  */
 export const updateConfig = async (req: ff.Request, res: ff.Response) => {
   if (process.env.AUTH_HOST === undefined || process.env.AUTH_HOST === '') {
-    res.status(500).send('Authentication host must be defined via the AUTH_HOST environment variable.');
+    res.status(400).send('Authentication host must be defined via the AUTH_HOST environment variable.');
     return;
   }
   // operation must have a value of either 'add' or 'delete' (case insensitive)
   const operation = req.body.operation ? req.body.operation.toLowerCase() : '';
   if (operation != 'add' && operation != 'delete') {
-    res.status(500).send('"operation" must be specified and its value must be one of either "add" or "delete".');
+    res.status(400).send('"operation" must be specified and its value must be one of either "add" or "delete".');
     return;
   }
 
@@ -99,14 +99,14 @@ export const updateConfig = async (req: ff.Request, res: ff.Response) => {
   const re = /[a-z][a-z0-9-]{8,14}[a-z0-9]/;
   const match = tenantId.match(re);
   if (! (match && tenantId === match[0])) {
-    res.status(500).send('"tenantId" must conform to the following regular expression: /[a-z][a-z0-9-]{8,14}[a-z0-9]/.');
+    res.status(400).send('"tenantId" must conform to the following regular expression: /[a-z][a-z0-9-]{8,14}[a-z0-9]/.');
     return;
   }
 
   // displayName must be specified if operation === 'add' and if so, its length must be between 1 and 30
   const displayName = req.body.displayName ?? '';
   if (operation === 'add' && (displayName.length < 1 || displayName.length> 30)) {
-    res.status(500).send('"displayName" must be speciffied if operation equals "add" and if so, its length must be between 1 and 30.');
+    res.status(400).send('"displayName" must be speciffied if operation equals "add" and if so, its length must be between 1 and 30.');
     return;
   }
 
@@ -119,6 +119,8 @@ export const updateConfig = async (req: ff.Request, res: ff.Response) => {
 
   if (result === StatusCode.ok) {
     res.status(200).send('OK');
+  } else if (result != StatusCode.invocationError) {
+    res.status(400).send(`Error code: ${result}`);
   } else {
     res.status(500).send(`Error code: ${result}`);
   }
