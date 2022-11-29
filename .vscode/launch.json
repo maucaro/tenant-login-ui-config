@@ -22,9 +22,7 @@
                 "${workspaceFolder}/build/**/*.js",
                 "!**/node_modules/**"
             ],
-            "env": {
-                "AUTH_HOST": "auth.arrcus.poc-searce.com"
-            }
+            "envFile": "${workspaceFolder}/.env"
         },
         {
             "type": "node",

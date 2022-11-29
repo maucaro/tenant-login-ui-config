@@ -2,17 +2,17 @@ const {updateConfig} = require('../build/index');
 const {Request, Response} = require('jest-express');
 
 const ORIGINAL_CONFIG = {
-  'AIzaSyCIsgBJsYdqx52E66YeV35zRhQyoaviHB8': {
-    'authDomain': 'arrcuspoc.firebaseapp.com',
+  'AIzaSy...': {
+    'authDomain': 'searcepoc.firebaseapp.com',
     'displayMode': 'optionFirst',
-    'selectTenantUiTitle': 'arrcuspoc',
+    'selectTenantUiTitle': 'Searce POC',
     'selectTenantUiLogo': '',
     'styleUrl': '',
     'tenants': {
       'tenant1-624h4': {
         'displayName': 'Tenant 1',
         'iconUrl': 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png',
-        'logoUrl': 'https://storage.googleapis.com/gcip-iap-bucket-authui-954140151439/arrcus.jpeg',
+        'logoUrl': '',
         'buttonColor': '#007bff',
         'immediateFederatedRedirect': true,
         'signInFlow': 'redirect',
@@ -29,8 +29,8 @@ const ORIGINAL_CONFIG = {
       },
       'tenant2-51wdt': {
         'displayName': 'Tenant 2',
-        'iconUrl': 'https://storage.googleapis.com/gcip-iap-bucket-authui-954140151439/arrcus.ico',
-        'logoUrl': 'https://storage.googleapis.com/gcip-iap-bucket-authui-954140151439/arrcus.jpeg',
+        'iconUrl': 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png',
+        'logoUrl': '',
         'buttonColor': '#007bff',
         'immediateFederatedRedirect': true,
         'signInFlow': 'redirect',
@@ -49,10 +49,10 @@ const ORIGINAL_CONFIG = {
 };
 
 const MODIFIED_CONFIG = {
-  'AIzaSyCIsgBJsYdqx52E66YeV35zRhQyoaviHB8': {
-    'authDomain': 'arrcuspoc.firebaseapp.com',
+  'AIzaSy...': {
+    'authDomain': 'searcepoc.firebaseapp.com',
     'displayMode': 'optionFirst',
-    'selectTenantUiTitle': 'arrcuspoc',
+    'selectTenantUiTitle': 'Searce POC',
     'selectTenantUiLogo': '',
     'styleUrl': '',
     'tenants': {
@@ -77,7 +77,7 @@ const MODIFIED_CONFIG = {
       'tenant1-624h4': {
         'displayName': 'Tenant 1',
         'iconUrl': 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png',
-        'logoUrl': 'https://storage.googleapis.com/gcip-iap-bucket-authui-954140151439/arrcus.jpeg',
+        'logoUrl': '',
         'buttonColor': '#007bff',
         'immediateFederatedRedirect': true,
         'signInFlow': 'redirect',
@@ -94,8 +94,8 @@ const MODIFIED_CONFIG = {
       },
       'tenant2-51wdt': {
         'displayName': 'Tenant 2',
-        'iconUrl': 'https://storage.googleapis.com/gcip-iap-bucket-authui-954140151439/arrcus.ico',
-        'logoUrl': 'https://storage.googleapis.com/gcip-iap-bucket-authui-954140151439/arrcus.jpeg',
+        'iconUrl': 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png',
+        'logoUrl': '',
         'buttonColor': '#007bff',
         'immediateFederatedRedirect': true,
         'signInFlow': 'redirect',
