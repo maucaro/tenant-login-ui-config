@@ -1,0 +1,1 @@
+curl http://localhost:8080 -H "Content-Type:application/json" -d '{"operation":"delete","tenantId":"auth0mm-12345"}'

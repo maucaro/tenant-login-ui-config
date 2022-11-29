@@ -18,7 +18,7 @@ const DATA_INVALID_OP = {
   displayName: 'AB CD',
 };
 
-const ADD_DATA_NO_DISPLAY_NAME = {
+const ADD_DATA_NO_TENANT_CONFIG = {
   operation: 'add',
   tenantId: 'abcd-12345',
 };
@@ -26,13 +26,11 @@ const ADD_DATA_NO_DISPLAY_NAME = {
 const ADD_DATA_INVALID_TENANT_ID_1 = {
   operation: 'add',
   tenantId: 'abcd-',
-  displayName: 'AB CD',
 };
 
 const ADD_DATA_INVALID_TENANT_ID_2 = {
   operation: 'add',
   tenantId: '',
-  displayName: 'AB CD',
 };
 
 const ADD_DATA_INVALID_TENANT_ID_3 = {
@@ -43,11 +41,11 @@ const ADD_DATA_INVALID_TENANT_ID_3 = {
 const ADD_DATA_INVALID_TENANT_ID_4 = {
   operation: 'add',
   tenantId: 'abcd-12345678901234567890',
-  displayName: 'AB CD',
 };
+
 const AUTH_ERROR = 'Authentication host must be defined via the AUTH_HOST environment variable.';
 const OP_ERROR = '"operation" must be specified and its value must be one of either "add" or "delete".';
-const DN_ERROR = '"displayName" must be speciffied if operation equals "add" and if so, its length must be between 1 and 30.';
+const TC_ERROR = '"tenantUiConfig" must be speciffied if operation is "add".';
 const TENANT_ID_ERROR = '"tenantId" must conform to the following regular expression: /[a-z][a-z0-9-]{8,14}[a-z0-9]/.';
 
 /**
@@ -72,12 +70,12 @@ describe('updateConfig input validation tests', () => {
 
   it('AUTH_HOST not set', async () => {
     delete process.env.AUTH_HOST;
-    errorRequest(ADD_DATA_NO_DISPLAY_NAME, AUTH_ERROR);
+    errorRequest(ADD_DATA_NO_TENANT_CONFIG, AUTH_ERROR);
   });
 
   it('AUTH_HOST empty', async () => {
     process.env.AUTH_HOST = '';
-    errorRequest(ADD_DATA_NO_DISPLAY_NAME, AUTH_ERROR);
+    errorRequest(ADD_DATA_NO_TENANT_CONFIG, AUTH_ERROR);
   });
 
   it('Operation missing', async () => {
@@ -93,7 +91,7 @@ describe('updateConfig input validation tests', () => {
   });
 
   it('Add operation without display name', async () => {
-    errorRequest(ADD_DATA_NO_DISPLAY_NAME, DN_ERROR);
+    errorRequest(ADD_DATA_NO_TENANT_CONFIG, TC_ERROR);
   });
 
   it('Add operation with invalid tenant ID # 1', async () => {

@@ -57,7 +57,7 @@ const MODIFIED_CONFIG = {
     'styleUrl': '',
     'tenants': {
       'abcd-12345': {
-        'displayName': 'AB CD',
+        'displayName': 'Auth0',
         'iconUrl': 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png',
         'logoUrl': '',
         'buttonColor': '#007bff',
@@ -135,7 +135,24 @@ jest.mock('../build/config-functions', () => {
 const ADD_DATA = {
   operation: 'add',
   tenantId: 'abcd-12345',
-  displayName: 'AB CD',
+  tenantUiConfig: {
+    'displayName': 'Auth0',
+    'iconUrl': 'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png',
+    'logoUrl': '',
+    'buttonColor': '#007bff',
+    'immediateFederatedRedirect': true,
+    'signInFlow': 'redirect',
+    'signInOptions': [
+      {
+        'provider': 'password',
+        'disableSignUp': {
+          'status': true,
+        },
+      },
+    ],
+    'tosUrl': '',
+    'privacyPolicyUrl': '',
+  },
 };
 
 const DELETE_DATA = {
@@ -147,7 +164,7 @@ const DELETE_DATA = {
 const ADD_DATA_GENERATE_ERROR = {
   operation: 'add',
   tenantId: 'abcd-error',
-  displayName: 'AB CD',
+  tenantUiConfig: 'AB CD',
 };
 
 const DELETE_DATA_GENERATE_ERROR = {

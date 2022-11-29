@@ -8,21 +8,17 @@ The following JSON data structure must be included in the POST payload:
 {
     "operation":"add|delete",
     "tenantId":"tenant1-624h4", 
-    "displayName":"Tenant 1"
+    "tenantUiConfig":{...}
 }
 ```
 
 Data structure notes:
 - operation must be either "add" or "delete"
 - tenantId must conform to the following regular expression: `/[a-z][a-z0-9-]{8,14}[a-z0-9]/`
-- displayName is required for "add" operations and optional (ignored) for "delete" operations; if required, its length must be between 1 and 30.
+- tenantUiConfig conforms to [ExtendedTenantUiConfig](https://github.com/GoogleCloudPlatform/iap-gcip-web-toolkit/blob/master/authui-container/common/config.ts#L62) interface; additional information can be found [here](https://github.com/GoogleCloudPlatform/iap-gcip-web-toolkit/tree/master/authui-container)
 
-Environment variables:
+Environment variable:
 - AUTH_HOST (required): the target authentication host 
-- ICON_URL (optional): icon Url; if not set, the following will be used: https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/anonymous.png
-- LOGO_URL (optional): logo Url
-- TOS_URL (optional): terms-of-service Url
-- PRIVACY_POLICY_URL (optional): privacy-policy Url
 
 Cloud Function notes:
 - The service account assigned to Cloud Function requires the https://www.googleapis.com/auth/devstorage.read_write scope as described [here](https://cloud.google.com/iap/docs/cloud-run-sign-in#customizing_the_sign-in_page_programmatically).
